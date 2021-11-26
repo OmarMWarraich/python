@@ -24,4 +24,3 @@ class Person:
 
     def generate_damage(self):
         return random.randrange(self.atl, self.atkh)
-    
