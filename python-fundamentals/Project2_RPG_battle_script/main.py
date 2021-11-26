@@ -1,16 +1,9 @@
-# This is a sample Python script.
+from classes.game import Person, bcolors
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+magic = [{"name": "Fire", "cost": 10, "dmg": 60},
+         {"name": "Thunder", "cost": 10, "dmg": 80},
+         {"name": "Blizzard", "cost": 10, "dmg": 60}]
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+player = Person(460, 65, 60, 34, magic)
+print(player.generate_spell_damage(0))
+print(player.generate_spell_damage(1))
