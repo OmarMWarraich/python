@@ -38,23 +38,23 @@ while running:
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("Choose magic:")) -1
-            # magic_dmg = player.generate_spell_damage(magic_choice)
-            # spell = player.get_spell_name(magic_choice)
-            # cost = player.get_spell_mp_cost(magic_choice)
 
             spell = player.magic[magic_choice]
             magic_dmg = spell.generate_damage()
-
 
             current_mp = player.get_mp()
 
             if spell.cost > current_mp:
                 print(bcolors.FAIL + "\nNot enough MP\n" + bcolors.ENDC)
                 continue
-
             player.reduce_mp(spell.cost)
-            enemy.take_damage(magic_dmg)
-            print(bcolors.OKBLUE + "\n" + spell.name + " deals ", str(magic_dmg), "points of damage" + bcolors.ENDC)
+
+            if spell.type == "white":
+                player.heal(magic_dmg)
+                print(bcolors.OKBLUE + "\n" + spell.name + " heals for", str(magic_dmg), "HP." + bcolors.ENDC)
+            elif spell.type == "black":
+                enemy.take_damage(magic_dmg)
+                print(bcolors.OKBLUE + "\n" + spell.name + " deals ", str(magic_dmg), "points of damage" + bcolors.ENDC)
 
         enemy_choice = 1
 

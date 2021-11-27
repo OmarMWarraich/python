@@ -33,6 +33,12 @@ class Person:
             self.hp = 0
         return self.hp
 
+    def heal(self, dmg):
+        self.hp += dmg
+        if self.hp < 0:
+            self.hp = 0
+        return self.hp
+
     def get_hp(self):
         return self.hp
 
