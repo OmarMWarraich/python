@@ -33,10 +33,10 @@ player_items = [{"item": potion, "quantity": 15}, {"item": hipotion, "quantity":
 #          {"name": "Blizzard", "cost": 10, "dmg": 100}]
 
 # Instantiate People
-player1 = Person("Valos:" ,3260, 65, 60, 34, player_spells, player_items)
-player2 = Person("Nick :" ,4160, 65, 60, 34, player_spells, player_items)
-player3 = Person("Robot:" ,3089, 65, 60, 34, player_spells, player_items)
-enemy = Person("Magus:" ,1200, 65, 45, 25, [], [])
+player1 = Person("Valos:" ,3260, 132, 60, 34, player_spells, player_items)
+player2 = Person("Nick :" ,4160, 188, 60, 34, player_spells, player_items)
+player3 = Person("Robot:" ,3089, 175, 60, 34, player_spells, player_items)
+enemy = Person("Magus:" ,11200, 2220, 45, 25, [], [])
 
 players = [player1, player2, player3]
 
@@ -49,7 +49,7 @@ while running:
     print("============================")
 
     print("\n\n")
-    print("NAME                 HP                                        MP")
+    print("NAME                 HP                                   MP")
     for player in players:
         player.get_stats()
 
