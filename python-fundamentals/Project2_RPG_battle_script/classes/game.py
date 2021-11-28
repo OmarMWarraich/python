@@ -61,7 +61,7 @@ class Person:
         print("\n" + "    " + bcolors.BOLD + self.name + bcolors.ENDC)
         print(bcolors.OKBLUE + bcolors.BOLD + "    ACTIONS:" + bcolors.ENDC)
         for item in self.actions:
-            print("        " +str(i) + ":", item)
+            print("        " +str(i) + ".", item)
             i += 1
 
     def choose_magic(self):
@@ -69,23 +69,25 @@ class Person:
 
         print("\n" + bcolors.OKBLUE + bcolors.BOLD + "    MAGIC:" + bcolors.ENDC)
         for spell in self.magic:
-            print("        " + str(i) + ":", spell.name, "(cost:", str(spell.cost) + ")")
+            print("        " + str(i) + ".", spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
 
-    def choose_item(self):
+    def choose_items(self):
         i = 1
 
         print("\n" + bcolors.OKGREEN + bcolors.BOLD + "    ITEMS:" + bcolors.ENDC)
         for item in self.items:
-            print("        " +str(i) + ".", item["item"].name, ":", item["item"].description, " (x" + str(item["quantity"]) + ")")
+            print("        " +str(i) + ".", item["item"].name, ":", item["item"].description, " (x"
+                  , str(item["quantity"]) + ")")
             i += 1
 
     def choose_target(self, enemies):
         i = 1
         print("\n" + bcolors.FAIL + bcolors.BOLD + "    TARGET:" + bcolors.ENDC)
         for enemy in enemies:
-            print("        " + str(i) + ".", enemy.name)
-            i += 1
+            if enemy.get_hp() != 0:
+                print("        " + str(i) + ".", enemy.name)
+                i += 1
         choice = int(input("    Choose target:")) - 1
         return choice
 
@@ -97,6 +99,7 @@ class Person:
         while bar_ticks > 0:
             hp_bar += "█"
             bar_ticks -= 1
+
         while len(hp_bar) < 50:
             hp_bar += " "
 
@@ -117,7 +120,7 @@ class Person:
 
         print("                    __________________________________________________")
         print(bcolors.BOLD + self.name + " " +
-              current_hp + " |" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
+              current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
 
 # Displaying stats via bars after every round
     def get_stats(self):
@@ -173,3 +176,19 @@ class Person:
         print(bcolors.BOLD + self.name +"    "+
               current_hp +" |" + bcolors.OKGREEN + hp_bar + bcolors.ENDC +bcolors.BOLD + "|    "+
               current_mp+ " |" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")
+
+    def choose_enemy_spell(self):
+        magic_choice = random.randrange(0, len(self.magic))
+        spell = self.magic[magic_choice]
+        magic_dmg = spell.generate_damage()
+
+        pct = self.hp / self.maxhp * 100
+
+        # If insufficient mp, choose again until one is found
+        # undo infinite loop
+
+        if self.mp < spell.cost or spell.type == "white" and pct>50:
+            self.choose_enemy_spell()
+
+        else:
+            return spell, magic_dmg
