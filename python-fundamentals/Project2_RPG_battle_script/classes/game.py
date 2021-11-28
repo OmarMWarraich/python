@@ -80,6 +80,16 @@ class Person:
             print("        " +str(i) + ".", item["item"].name, ":", item["item"].description, " (x" + str(item["quantity"]) + ")")
             i += 1
 
+    def choose_target(self, enemies):
+        i = 1
+        print("\n" + bcolors.FAIL + bcolors.BOLD + "    TARGET:" + bcolors.ENDC)
+        for enemy in enemies:
+            print("        " + str(i) + ".", enemy.name)
+            i += 1
+        choice = int(input("    Choose target:")) - 1
+        return choice
+
+
     def get_enemy_stats(self):
         hp_bar = ""
         bar_ticks = (self.hp / self.maxhp) * 100 / 2
@@ -90,7 +100,7 @@ class Person:
         while len(hp_bar) < 50:
             hp_bar += " "
 
-        hp_string = str(self.hp) + "/" + str(self.name)
+        hp_string = str(self.hp) + "/" + str(self.maxhp)
         current_hp = ""
 
         if len(hp_string) < 11:
@@ -107,7 +117,7 @@ class Person:
 
         print("                    __________________________________________________")
         print(bcolors.BOLD + self.name + " " +
-              current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
+              current_hp + " |" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
 
 # Displaying stats via bars after every round
     def get_stats(self):
